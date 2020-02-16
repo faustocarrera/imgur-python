@@ -8,43 +8,33 @@ from os import path
 import json
 import click
 import webbrowser
-from imgur import Authorize
-from imgur import Images
-from imgur import Albums
+from imgur import Imgur
 
 
 @click.group(chain=True, invoke_without_command=True)
 @click.pass_context
 def cli(ctx):
     if ctx.invoked_subcommand is None:
-        click.echo('I was invoked without subcommand')
+        print('Use run.py --help to display options')
+    else:
+        ctx.ensure_object(dict)
+        ctx.obj['IMGUR'] = Imgur(get_config())
 
 
 @cli.command('authorize')
-def authorize():
+@click.pass_context
+def authorize(ctx):
     "Authorization"
-    auth = Authorize(get_config())
-    webbrowser.open(auth.get_url())
+    imgur = ctx.obj['IMGUR']
+    webbrowser.open(imgur.authorize())
 
 
-@cli.command('post')
-def post():
-    "Post image to imgur"
-    config = get_config()
-    image = realpath('./images/untitled.png')
-    images = Images(config)
-    albums = Albums(config)
-    image_response = images.post_image(image, 'untitled.png', 'this is a test')
-    if image_response['status'] == 200:
-        # create album and add the image
-        ids = []
-        image_data = image_response['response']['data']
-        ids.append(image_data['id'])
-        # create album and add image
-        album_response = albums.create(
-            ids, 'this is a test', 'this is a test', 'hidden')
-        print(image_data)
-        print(album_response)
+@cli.command('access_token')
+@click.pass_context
+def access_token(ctx):
+    "Generate access token"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.access_token())
 
 
 def get_config():
@@ -56,4 +46,4 @@ def get_config():
 
 
 if __name__ == '__main__':
-    cli()
+    cli(obj={})
