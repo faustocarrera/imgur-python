@@ -4,7 +4,6 @@
 Imgur entry point
 """
 
-import requests
 from .Account import Account
 from .Album import Album
 from .Authorize import Authorize
