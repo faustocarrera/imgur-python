@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Images handler
+Image handler
 """
 
-import json
 import requests
 
 
-class Images():
+class Image():
     "Class to handle images in the imgur account"
 
     def __init__(self, config):

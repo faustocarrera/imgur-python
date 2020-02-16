@@ -6,14 +6,15 @@ imgur entry point
 
 from os import path
 import json
-import click
 import webbrowser
+import click
 from imgur import Imgur
 
 
 @click.group(chain=True, invoke_without_command=True)
 @click.pass_context
 def cli(ctx):
+    "Script for the imgur API client testing"
     if ctx.invoked_subcommand is None:
         print('Use run.py --help to display options')
     else:
@@ -24,7 +25,7 @@ def cli(ctx):
 @cli.command('authorize')
 @click.pass_context
 def authorize(ctx):
-    "Authorization"
+    "Generate authorization link"
     imgur = ctx.obj['IMGUR']
     webbrowser.open(imgur.authorize())
 
