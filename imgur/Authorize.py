@@ -16,7 +16,7 @@ class Authorize():
 
     def get_url(self):
         "Generate authorization url"
-        url = '{0}/oauth2/authorize?client_id={0}&response_type=token'
+        url = '{0}/oauth2/authorize?client_id={1}&response_type=token'
         return url.format(self.api_url, self.config['client_id'])
 
     def generate_access_token(self):
