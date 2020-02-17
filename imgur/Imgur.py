@@ -56,3 +56,12 @@ class Imgur():
         "Unblock a user"
         account = Account(self.config, self.api_url)
         return account.unblock(username)
+
+    # Images
+
+    def images(self, username, page):
+        "Get account images"
+        if username == self.config['account_username']:
+            username = 'me'
+        images = Image(self.config, self.api_url)
+        return images.images(username, page)
