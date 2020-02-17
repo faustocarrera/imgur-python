@@ -21,6 +21,7 @@ class Authorize():
 
     def generate_access_token(self):
         "Generate access token with the refresh token"
+        response = {}
         url = '{0}/oauth2/token'.format(self.api_url)
         payload = {
             'refresh_token': self.config['refresh_token'],
@@ -28,11 +29,5 @@ class Authorize():
             'client_secret': self.config['client_secret'],
             'grant_type': 'refresh_token'
         }
-        response = requests.post(
-            url,
-            data=payload
-        )
-        return {
-            'status': response.status_code,
-            'response': response.json()
-        }
+        request = requests.post(url, data=payload)
+        return self.response(request, url)
