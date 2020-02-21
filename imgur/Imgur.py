@@ -76,6 +76,14 @@ class Imgur():
         "Get the current account's avatar URL and avatar name"
         account = Account(self.config, self.api_url)
         return account.avatar()
+    
+    def settings(self, settings_data=None):
+        "Get the current account's avatar URL and avatar name"
+        account = Account(self.config, self.api_url)
+        if settings_data is None:
+            return account.settings()
+        else:
+            return save_settings(settings_data)
 
     # Images
 

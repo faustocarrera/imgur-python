@@ -94,7 +94,7 @@ class Account(ImgurBase):
         return self.response(request, url)
 
     def avatars(self):
-        "Get the list of available avatars for the logged user"
+        "Get the list of available avatars for the current account"
         url = '{0}/3/account/{1}/available_avatars'.format(
             self.api_url,
             self.config['account_username']
@@ -115,4 +115,25 @@ class Account(ImgurBase):
             'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }
         request = requests.get(url, headers=headers)
+        return self.response(request, url)
+
+    def settings(self):
+        "Returns the account settings"
+        url = '{0}/3/account/me/settings'.format(self.api_url)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.response(request, url)
+
+    def save_settings(self, payload):
+        "Updates the account settings"
+        url = '{0}/3/account/{1}/settings'.format(
+            self.api_url,
+            self.config['account_username']
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.put(url, headers=headers, data=payload)
         return self.response(request, url)
