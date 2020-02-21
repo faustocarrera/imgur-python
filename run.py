@@ -11,7 +11,7 @@ import click
 from imgur import Imgur
 
 
-@click.group(chain=True, invoke_without_command=True)
+@click.group(chain=False, invoke_without_command=True)
 @click.pass_context
 def cli(ctx):
     "Script for the imgur API client testing"
@@ -19,7 +19,10 @@ def cli(ctx):
         print('Use run.py --help to display options')
     else:
         ctx.ensure_object(dict)
+        ctx.obj['CONFIG'] = get_config()
         ctx.obj['IMGUR'] = Imgur(get_config())
+
+# Auth
 
 
 @cli.command('authorize')
@@ -27,7 +30,7 @@ def cli(ctx):
 def authorize(ctx):
     "Generate authorization link"
     imgur = ctx.obj['IMGUR']
-    webbrowser.open(imgur.authorize())
+    print(imgur.authorize())
 
 
 @cli.command('access_token')
@@ -36,6 +39,130 @@ def access_token(ctx):
     "Generate access token"
     imgur = ctx.obj['IMGUR']
     print(imgur.access_token())
+
+# Account
+
+
+@cli.command('account_base')
+@click.option('--username', default=None, help='imgur username')
+@click.pass_context
+def account_base(ctx, username):
+    "Get account base"
+    imgur = ctx.obj['IMGUR']
+    if username is None:
+        username = ctx.obj['CONFIG']['account_username']
+    print(imgur.account_base(username))
+
+
+@cli.command('block_status')
+@click.option('--username', default=None, help='imgur username')
+@click.pass_context
+def block_status(ctx, username):
+    "Check if the <username> blocked you"
+    imgur = ctx.obj['IMGUR']
+    if username is None:
+        username = ctx.obj['CONFIG']['account_username']
+    print(imgur.block_status(username))
+
+
+@cli.command('blocks')
+@click.pass_context
+def blocks(ctx):
+    "Blocked accounts"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.blocks())
+
+
+@cli.command('block')
+@click.option('--username', default=None, help='imgur username')
+@click.pass_context
+def block(ctx, username):
+    "Block a user"
+    if username is None:
+        print('Username is required')
+        return
+
+    if username == ctx.obj['CONFIG']['account_username']:
+        print('You can not block yourself')
+        return
+
+    imgur = ctx.obj['IMGUR']
+    print(imgur.block(username))
+
+
+@cli.command('unblock')
+@click.option('--username', default=None, help='imgur username')
+@click.pass_context
+def unblock(ctx, username):
+    "Block a user"
+    if username is None:
+        print('Username is required')
+        return
+
+    if username == ctx.obj['CONFIG']['account_username']:
+        print('You can not unblock yourself')
+        return
+
+    imgur = ctx.obj['IMGUR']
+    print(imgur.unblock(username))
+
+
+@cli.command('favorites')
+@click.pass_context
+def favorites(ctx):
+    "Users favorited images"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.favorites(0, 'oldest'))
+
+
+@cli.command('submissions')
+@click.option('--username', default=None, help='imgur username')
+@click.pass_context
+def submissions(ctx, username):
+    "Block a user"
+    if username is None:
+        print('Username is required')
+        return
+
+    imgur = ctx.obj['IMGUR']
+    print(imgur.submissions(username))
+
+
+@cli.command('avatars')
+@click.pass_context
+def avatars(ctx):
+    "Available avatars"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.avatars())
+
+
+@cli.command('avatar')
+@click.pass_context
+def avatar(ctx):
+    "Account avatar"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.avatar())
+
+
+@cli.command('settings')
+@click.pass_context
+def settings(ctx):
+    "Account settings"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.settings())
+
+# Image
+
+
+@cli.command('images')
+@click.option('--username', default=None, help='imgur username')
+@click.pass_context
+def images(ctx, username):
+    "Check if the <username> blocked you"
+    imgur = ctx.obj['IMGUR']
+    if username is None:
+        username = ctx.obj['CONFIG']['account_username']
+    print(imgur.images(username, 0))
 
 
 def get_config():
