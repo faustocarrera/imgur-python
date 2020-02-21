@@ -44,24 +44,20 @@ def access_token(ctx):
 
 
 @cli.command('account_base')
-@click.option('--username', default=None, help='imgur username')
+@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def account_base(ctx, username):
     "Get account base"
     imgur = ctx.obj['IMGUR']
-    if username is None:
-        username = ctx.obj['CONFIG']['account_username']
     print(imgur.account_base(username))
 
 
 @cli.command('block_status')
-@click.option('--username', default=None, help='imgur username')
+@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def block_status(ctx, username):
     "Check if the <username> blocked you"
     imgur = ctx.obj['IMGUR']
-    if username is None:
-        username = ctx.obj['CONFIG']['account_username']
     print(imgur.block_status(username))
 
 
@@ -74,14 +70,10 @@ def blocks(ctx):
 
 
 @cli.command('block')
-@click.option('--username', default=None, help='imgur username')
+@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def block(ctx, username):
     "Block a user"
-    if username is None:
-        print('Username is required')
-        return
-
     if username == ctx.obj['CONFIG']['account_username']:
         print('You can not block yourself')
         return
@@ -91,14 +83,10 @@ def block(ctx, username):
 
 
 @cli.command('unblock')
-@click.option('--username', default=None, help='imgur username')
+@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def unblock(ctx, username):
     "Block a user"
-    if username is None:
-        print('Username is required')
-        return
-
     if username == ctx.obj['CONFIG']['account_username']:
         print('You can not unblock yourself')
         return
@@ -116,14 +104,10 @@ def favorites(ctx):
 
 
 @cli.command('submissions')
-@click.option('--username', default=None, help='imgur username')
+@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def submissions(ctx, username):
     "Block a user"
-    if username is None:
-        print('Username is required')
-        return
-
     imgur = ctx.obj['IMGUR']
     print(imgur.submissions(username))
 
@@ -151,11 +135,19 @@ def settings(ctx):
     imgur = ctx.obj['IMGUR']
     print(imgur.settings())
 
+@cli.command('comments')
+@click.option('--username', default=None, help='imgur username', required=True)
+@click.pass_context
+def comments(ctx, username):
+    "Account comments"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comments(username))
+
 # Image
 
 
 @cli.command('images')
-@click.option('--username', default=None, help='imgur username')
+@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def images(ctx, username):
     "Check if the <username> blocked you"
