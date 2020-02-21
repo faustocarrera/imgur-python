@@ -22,6 +22,8 @@ def cli(ctx):
         ctx.obj['CONFIG'] = get_config()
         ctx.obj['IMGUR'] = Imgur(get_config())
 
+# Auth
+
 
 @cli.command('authorize')
 @click.pass_context
@@ -37,6 +39,8 @@ def access_token(ctx):
     "Generate access token"
     imgur = ctx.obj['IMGUR']
     print(imgur.access_token())
+
+# Account
 
 
 @cli.command('account_base')
@@ -96,11 +100,34 @@ def unblock(ctx, username):
         return
 
     if username == ctx.obj['CONFIG']['account_username']:
-        print('You can not block yourself')
+        print('You can not unblock yourself')
         return
 
     imgur = ctx.obj['IMGUR']
     print(imgur.unblock(username))
+
+
+@cli.command('favorites')
+@click.pass_context
+def favorites(ctx):
+    "Users favorited images"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.favorites(0, 'oldest'))
+
+
+@cli.command('submissions')
+@click.option('--username', default=None, help='imgur username')
+@click.pass_context
+def submissions(ctx, username):
+    "Block a user"
+    if username is None:
+        print('Username is required')
+        return
+
+    imgur = ctx.obj['IMGUR']
+    print(imgur.submissions(username))
+
+# Image
 
 
 @cli.command('images')

@@ -9,6 +9,7 @@ from .ImgurBase import ImgurBase
 
 
 class Account(ImgurBase):
+    "Account"
 
     def __init__(self, config, api_url):
         self.config = config
@@ -63,4 +64,31 @@ class Account(ImgurBase):
             'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }
         request = requests.delete(url, headers=headers)
+        return self.response(request, url)
+
+    def favorites(self, page=0, sort='newest'):
+        "Returns the users favorited images"
+        url = '{0}/3/account/{1}/favorites/{2}/{3}'.format(
+            self.api_url,
+            self.config['account_username'],
+            page,
+            sort
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.response(request, url)
+
+    def submissions(self, username, page):
+        "Return the images a user has submitted to the gallery"
+        url = '{0}/3/account/{1}/submissions/{2}'.format(
+            self.api_url,
+            username,
+            page
+        )
+        headers = {
+            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+        }
+        request = requests.get(url, headers=headers)
         return self.response(request, url)

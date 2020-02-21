@@ -56,6 +56,16 @@ class Imgur():
         "Unblock a user"
         account = Account(self.config, self.api_url)
         return account.unblock(username)
+    
+    def favorites(self, page=0, sort='newest'):
+        "User favorites"
+        account = Account(self.config, self.api_url)
+        return account.favorites(page, sort)
+    
+    def submissions(self, username, page=0):
+        "User submissions to the gallery"
+        account = Account(self.config, self.api_url)
+        return account.submissions(username, page)
 
     # Images
 
