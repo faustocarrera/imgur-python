@@ -127,6 +127,22 @@ def submissions(ctx, username):
     imgur = ctx.obj['IMGUR']
     print(imgur.submissions(username))
 
+
+@cli.command('avatars')
+@click.pass_context
+def avatars(ctx):
+    "Blocked accounts"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.avatars())
+
+
+@cli.command('avatar')
+@click.pass_context
+def avatar(ctx):
+    "Blocked accounts"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.avatar())
+
 # Image
 
 

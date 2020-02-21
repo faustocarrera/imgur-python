@@ -92,3 +92,27 @@ class Account(ImgurBase):
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
+
+    def avatars(self):
+        "Get the list of available avatars for the logged user"
+        url = '{0}/3/account/{1}/available_avatars'.format(
+            self.api_url,
+            self.config['account_username']
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.response(request, url)
+
+    def avatar(self):
+        "Get the current account's avatar URL and avatar name"
+        url = '{0}/3/account/{1}/avatar'.format(
+            self.api_url,
+            self.config['account_username']
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.response(request, url)

@@ -56,16 +56,26 @@ class Imgur():
         "Unblock a user"
         account = Account(self.config, self.api_url)
         return account.unblock(username)
-    
+
     def favorites(self, page=0, sort='newest'):
         "User favorites"
         account = Account(self.config, self.api_url)
         return account.favorites(page, sort)
-    
+
     def submissions(self, username, page=0):
         "User submissions to the gallery"
         account = Account(self.config, self.api_url)
         return account.submissions(username, page)
+
+    def avatars(self):
+        "Get the list of available avatars for the logged user"
+        account = Account(self.config, self.api_url)
+        return account.avatars()
+
+    def avatar(self):
+        "Get the current account's avatar URL and avatar name"
+        account = Account(self.config, self.api_url)
+        return account.avatar()
 
     # Images
 
