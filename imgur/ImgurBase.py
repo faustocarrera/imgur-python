@@ -8,7 +8,8 @@ Base class
 class ImgurBase():
     "Basic methods"
 
-    def response(self, request, url):
+    @staticmethod
+    def response(request, url):
         "Compose response"
         response = {}
         response['url'] = url
