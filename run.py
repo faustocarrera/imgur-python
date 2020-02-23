@@ -135,6 +135,7 @@ def settings(ctx):
     imgur = ctx.obj['IMGUR']
     print(imgur.settings())
 
+
 @cli.command('comments')
 @click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
@@ -142,6 +143,32 @@ def comments(ctx, username):
     "Account comments"
     imgur = ctx.obj['IMGUR']
     print(imgur.comments(username))
+
+
+@cli.command('comment')
+@click.option('--comment_id', default=None, help='comment id', required=True)
+@click.pass_context
+def comment(ctx, comment_id):
+    "Information about a comment"
+    # 1804022011
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comment_get(comment_id))
+
+
+@cli.command('comment_post')
+@click.pass_context
+def comment_post(ctx):
+    "Post a comment"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comment_post('TneZVzU', 'this is a reply to the comment'))
+
+
+@cli.command('comment_delete')
+@click.pass_context
+def comment_delete(ctx):
+    "Post a comment"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comment_delete(1809979027))
 
 # Image
 
