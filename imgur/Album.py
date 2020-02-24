@@ -78,3 +78,21 @@ class Album(ImgurBase):
         }
         request = requests.delete(url, headers=headers)
         return self.response(request, url)
+    
+    def add(self, album_id, payload):
+        "Adds the marked images to an album"
+        url = '{0}/3/album/{1}/add'.format(self.api_url, album_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers, data=payload)
+        return self.response(request, url)
+        
+    def remove(self, delete_hash, payload):
+        "Remove the marked images from an album"
+        url = '{0}/3/album/{1}/remove_images'.format(self.api_url, delete_hash)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers, data=payload)
+        return self.response(request, url)

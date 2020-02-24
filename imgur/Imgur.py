@@ -150,6 +150,20 @@ class Imgur():
         "Delete an album with a given deletehash"
         return self.album.delete(delete_hash)
 
+    def album_add(self, album_id, images):
+        "Adds the marked images to an album"
+        payload = {
+            'ids[]': images
+        }
+        return self.album.add(album_id, payload)
+
+    def album_remove(self, delete_hash, images):
+        "Remove the marked images from an album"
+        payload = {
+            'ids[]': images
+        }
+        return self.album.remove(delete_hash, payload)
+
     # Image
 
     def images(self, username, page):

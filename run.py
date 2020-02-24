@@ -234,6 +234,25 @@ def album_delete(ctx, delete_hash):
     print(imgur.album_delete(delete_hash))
 
 
+@cli.command('album_add')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_add(ctx,  album_id):
+    "Adds the marked images to an album"
+    imgur = ctx.obj['IMGUR']
+    images = ['g38lQAb', 'flF3tuE', 'DZhTxTf', 'qmjQAHV']
+    print(imgur.album_add(album_id, images))
+
+
+@cli.command('album_remove')
+@click.option('--delete_hash', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_remove(ctx,  delete_hash):
+    "Remove the marked images from an album"
+    imgur = ctx.obj['IMGUR']
+    images = ['g38lQAb', 'flF3tuE']
+    print(imgur.album_remove(delete_hash, images))
+
 # Image
 
 
