@@ -17,10 +17,7 @@ class Account(ImgurBase):
 
     def base(self, username):
         "Request standard user information"
-        url = '{0}/3/account/{1}'.format(
-            self.api_url,
-            username
-        )
+        url = '{0}/3/account/{1}'.format(self.api_url, username)
         headers = {
             'authorization': 'Client-ID {0}'.format(self.config['client_id'])
         }
@@ -29,10 +26,7 @@ class Account(ImgurBase):
 
     def block_status(self, username):
         "Determine if the user making the request has blocked a username"
-        url = '{0}/account/v1/{1}/block'.format(
-            self.api_url,
-            username
-        )
+        url = '{0}/account/v1/{1}/block'.format(self.api_url, username)
         headers = {
             'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }

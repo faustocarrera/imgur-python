@@ -260,11 +260,20 @@ def album_remove(ctx,  delete_hash):
 @click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def images(ctx, username):
-    "Check if the <username> blocked you"
+    "Get account images"
     imgur = ctx.obj['IMGUR']
     if username is None:
         username = ctx.obj['CONFIG']['account_username']
     print(imgur.images(username, 0))
+
+
+@cli.command('image')
+@click.option('--image_id', default=None, help='image id', required=True)
+@click.pass_context
+def image(ctx, image_id):
+    "Get information about an image"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.image_get(image_id))
 
 
 def get_config():

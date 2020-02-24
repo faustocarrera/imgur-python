@@ -27,3 +27,12 @@ class Image(ImgurBase):
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
+
+    def image(self, image_id):
+        "Get information about an image"
+        url = '{0}/3/image/{1}'.format(self.api_url, image_id)
+        headers = {
+            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.response(request, url)

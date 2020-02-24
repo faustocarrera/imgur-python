@@ -22,6 +22,7 @@ class Imgur():
         self.account = Account(self.config, self.api_url)
         self.comment = Comment(self.config, self.api_url)
         self.album = Album(self.config, self.api_url)
+        self.image = Image(self.config, self.api_url)
 
     # Authorization
 
@@ -170,5 +171,8 @@ class Imgur():
         "Get account images"
         if username == self.config['account_username']:
             username = 'me'
-        image = Image(self.config, self.api_url)
-        return image.images(username, page)
+        return self.image.images(username, page)
+    
+    def image_get(self, image_id):
+        "Get information about an image"
+        return self.image.image(image_id)
