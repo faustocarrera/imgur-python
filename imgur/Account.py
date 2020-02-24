@@ -126,7 +126,7 @@ class Account(ImgurBase):
         request = requests.get(url, headers=headers)
         return self.response(request, url)
 
-    def save_settings(self, payload):
+    def save(self, payload):
         "Updates the account settings"
         url = '{0}/3/account/{1}/settings'.format(
             self.api_url,

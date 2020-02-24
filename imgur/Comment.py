@@ -37,7 +37,7 @@ class Comment(ImgurBase):
         request = requests.get(url, headers=headers)
         return self.response(request, url)
 
-    def comment_post(self, payload):
+    def post(self, payload):
         "Creates a new comment or reply a comment, returns the ID of the comment"
         url = '{0}/3/comment'.format(self.api_url)
         headers = {
@@ -46,7 +46,7 @@ class Comment(ImgurBase):
         request = requests.post(url, headers=headers, data=payload)
         return self.response(request, url)
 
-    def comment_delete(self, comment_id):
+    def delete(self, comment_id):
         "Delete a comment by the given id"
         url = '{0}/3/comment/{1}'.format(self.api_url, comment_id)
         headers = {
@@ -55,7 +55,7 @@ class Comment(ImgurBase):
         request = requests.delete(url, headers=headers)
         return self.response(request, url)
 
-    def comment_vote(self, comment_id, vote):
+    def vote(self, comment_id, vote):
         "Vote on a comment"
         url = '{0}/3/comment/{1}/vote/{1}'.format(
             self.api_url, comment_id, vote)
@@ -65,7 +65,7 @@ class Comment(ImgurBase):
         request = requests.post(url, headers=headers)
         return self.response(request, url)
 
-    def comment_report(self, comment_id, reason):
+    def report(self, comment_id, reason):
         "Report a comment for being inappropriate"
         url = '{0}/3/comment/{1}/report'.format(self.api_url, comment_id)
         headers = {

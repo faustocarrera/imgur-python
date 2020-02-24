@@ -28,7 +28,7 @@ class Album(ImgurBase):
         request = requests.get(url, headers=headers)
         return self.response(request, url)
 
-    def album_get(self, album_id):
+    def album(self, album_id):
         "Get additional information about an album"
         url = '{0}/3/album/{1}'.format(
             self.api_url,
@@ -40,7 +40,7 @@ class Album(ImgurBase):
         request = requests.get(url, headers=headers)
         return self.response(request, url)
 
-    def album_images(self, album_id):
+    def images(self, album_id):
         "Get information about an image in an album"
         url = '{0}/3/album/{1}/images'.format(
             self.api_url,
@@ -50,4 +50,31 @@ class Album(ImgurBase):
             'authorization': 'Client-ID {0}'.format(self.config['client_id'])
         }
         request = requests.get(url, headers=headers)
+        return self.response(request, url)
+
+    def create(self, payload):
+        "Create a new album"
+        url = '{0}/3/album'.format(self.api_url)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers, data=payload)
+        return self.response(request, url)
+
+    def update(self, album_id, payload):
+        "Update the information of an album"
+        url = '{0}/3/album/{1}'.format(self.api_url, album_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.put(url, headers=headers, data=payload)
+        return self.response(request, url)
+
+    def delete(self, delete_hash):
+        "Delete an album with a given deletehash"
+        url = '{0}/3/album/{1}'.format(self.api_url, delete_hash)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.delete(url, headers=headers)
         return self.response(request, url)

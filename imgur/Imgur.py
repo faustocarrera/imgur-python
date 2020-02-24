@@ -76,7 +76,7 @@ class Imgur():
         if settings_data is None:
             return self.account.settings()
         else:
-            return save_settings(settings_data)
+            return self.account.save(settings_data)
 
     # Comment
 
@@ -96,33 +96,59 @@ class Imgur():
         }
         if parent_id is not None:
             data['parent_id'] = parent_id
-        return self.comment.comment_post(data)
+        return self.comment.post(data)
 
     def comment_delete(self, comment_id):
         "Delete a comment by the given id"
-        return self.comment.comment_delete(comment_id)
+        return self.comment.delete(comment_id)
 
     def comment_vote(self, comment_id, vote):
         "Vote on a comment"
-        return self.comment.comment_vote(comment_id, vote)
+        return self.comment.vote(comment_id, vote)
 
     def comment_report(self, comment_id, reason):
         "Report a comment for being inappropriate"
-        return self.comment.comment_report(comment_id, reason)
-    
+        return self.comment.report(comment_id, reason)
+
     # Album
-    
+
     def albums(self, username, page=0):
         "Get all the albums associated with the account"
         return self.album.albums(username, page)
-    
+
     def album_get(self, album_id):
         "Get additional information about an album"
-        return self.album.album_get(album_id)
-    
+        return self.album.album(album_id)
+
     def album_images(self, album_id):
         "Get information about an image in an album"
-        return self.album.album_images(album_id)
+        return self.album.images(album_id)
+
+    def album_create(self, images, title, description, privacy='hidden'):
+        "Create a new album"
+        payload = {}
+        payload['title'] = title
+        payload['description'] = description
+        payload['privacy'] = privacy
+        if len(images):
+            payload['ids[]'] = images
+            payload['cover'] = images[0]
+        return self.album.create(payload)
+
+    def album_update(self, album_id, images, title, description, privacy='hidden'):
+        "Update the information of an album"
+        payload = {}
+        payload['title'] = title
+        payload['description'] = description
+        payload['privacy'] = privacy
+        if len(images):
+            payload['ids[]'] = images
+            payload['cover'] = images[0]
+        return self.album.update(album_id, payload)
+
+    def album_delete(self, delete_hash):
+        "Delete an album with a given deletehash"
+        return self.album.delete(delete_hash)
 
     # Image
 

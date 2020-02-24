@@ -199,6 +199,41 @@ def album_images(ctx, album_id):
     imgur = ctx.obj['IMGUR']
     print(imgur.album_images(album_id))
 
+
+@cli.command('album_create')
+@click.pass_context
+def album_create(ctx):
+    "Create a new album"
+    imgur = ctx.obj['IMGUR']
+    images = []
+    title = 'Album title'
+    description = 'Album description'
+    privacy = 'hidden'
+    print(imgur.album_create(images, title, description, privacy))
+
+
+@cli.command('album_update')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_update(ctx,  album_id):
+    "Update the information of an album"
+    imgur = ctx.obj['IMGUR']
+    images = ['g38lQAb', 'flF3tuE', 'DZhTxTf', 'qmjQAHV']
+    title = 'Album edited title'
+    description = 'Album edited description'
+    privacy = 'hidden'
+    print(imgur.album_update(album_id, images, title, description, privacy))
+
+
+@cli.command('album_delete')
+@click.option('--delete_hash', default=None, help='Album delete hash', required=True)
+@click.pass_context
+def album_delete(ctx, delete_hash):
+    "Delete an album with a given deletehash."
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_delete(delete_hash))
+
+
 # Image
 
 
