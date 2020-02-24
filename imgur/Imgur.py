@@ -21,6 +21,7 @@ class Imgur():
         self.auth = Authorize(self.config, self.api_url)
         self.account = Account(self.config, self.api_url)
         self.comment = Comment(self.config, self.api_url)
+        self.album = Album(self.config, self.api_url)
 
     # Authorization
 
@@ -75,41 +76,95 @@ class Imgur():
         if settings_data is None:
             return self.account.settings()
         else:
-            return save_settings(settings_data)
+            return self.account.save(settings_data)
 
-    # Comments
+    # Comment
 
     def comments(self, username, page=0, sort='newest'):
         "Return the comments the user has created"
         return self.comment.comments(username, page, sort)
 
     def comment_get(self, comment_id):
-        "Get information about a specific comment."
+        "Get information about a specific comment"
         return self.comment.comment(comment_id)
 
     def comment_post(self, image_id, comment, parent_id=None):
-        "Creates a new comment or reply a comment, returns the ID of the comment."
+        "Creates a new comment or reply a comment, returns the ID of the comment"
         data = {
             'image_id': image_id,
             'comment': comment
         }
         if parent_id is not None:
             data['parent_id'] = parent_id
-        return self.comment.comment_post(data)
+        return self.comment.post(data)
 
     def comment_delete(self, comment_id):
-        "Delete a comment by the given id."
-        return self.comment.comment_delete(comment_id)
+        "Delete a comment by the given id"
+        return self.comment.delete(comment_id)
 
     def comment_vote(self, comment_id, vote):
-        "Vote on a comment."
-        return self.comment.comment_vote(comment_id, vote)
+        "Vote on a comment"
+        return self.comment.vote(comment_id, vote)
 
     def comment_report(self, comment_id, reason):
         "Report a comment for being inappropriate"
-        return self.comment.comment_report(comment_id, reason)
+        return self.comment.report(comment_id, reason)
 
-    # Images
+    # Album
+
+    def albums(self, username, page=0):
+        "Get all the albums associated with the account"
+        return self.album.albums(username, page)
+
+    def album_get(self, album_id):
+        "Get additional information about an album"
+        return self.album.album(album_id)
+
+    def album_images(self, album_id):
+        "Get information about an image in an album"
+        return self.album.images(album_id)
+
+    def album_create(self, images, title, description, privacy='hidden'):
+        "Create a new album"
+        payload = {}
+        payload['title'] = title
+        payload['description'] = description
+        payload['privacy'] = privacy
+        if len(images):
+            payload['ids[]'] = images
+            payload['cover'] = images[0]
+        return self.album.create(payload)
+
+    def album_update(self, album_id, images, title, description, privacy='hidden'):
+        "Update the information of an album"
+        payload = {}
+        payload['title'] = title
+        payload['description'] = description
+        payload['privacy'] = privacy
+        if len(images):
+            payload['ids[]'] = images
+            payload['cover'] = images[0]
+        return self.album.update(album_id, payload)
+
+    def album_delete(self, delete_hash):
+        "Delete an album with a given deletehash"
+        return self.album.delete(delete_hash)
+
+    def album_add(self, album_id, images):
+        "Adds the marked images to an album"
+        payload = {
+            'ids[]': images
+        }
+        return self.album.add(album_id, payload)
+
+    def album_remove(self, delete_hash, images):
+        "Remove the marked images from an album"
+        payload = {
+            'ids[]': images
+        }
+        return self.album.remove(delete_hash, payload)
+
+    # Image
 
     def images(self, username, page):
         "Get account images"

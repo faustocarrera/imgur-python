@@ -17,7 +17,11 @@ class Image(ImgurBase):
 
     def images(self, username, page):
         "Get account images"
-        url = '{0}/3/account/{1}/images/{2}'.format(self.api_url, username, page)
+        url = '{0}/3/account/{1}/images/{2}'.format(
+            self.api_url,
+            username,
+            page
+        )
         headers = {
             'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }

@@ -86,7 +86,7 @@ def block(ctx, username):
 @click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def unblock(ctx, username):
-    "Block a user"
+    "Unblock a user"
     if username == ctx.obj['CONFIG']['account_username']:
         print('You can not unblock yourself')
         return
@@ -107,7 +107,7 @@ def favorites(ctx):
 @click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def submissions(ctx, username):
-    "Block a user"
+    "User submissions"
     imgur = ctx.obj['IMGUR']
     print(imgur.submissions(username))
 
@@ -146,7 +146,7 @@ def comments(ctx, username):
 
 
 @cli.command('comment')
-@click.option('--comment_id', default=None, help='comment id', required=True)
+@click.option('--comment_id', default=None, help='Comment ID', required=True)
 @click.pass_context
 def comment(ctx, comment_id):
     "Information about a comment"
@@ -166,9 +166,92 @@ def comment_post(ctx):
 @cli.command('comment_delete')
 @click.pass_context
 def comment_delete(ctx):
-    "Post a comment"
+    "Delete a comment"
     imgur = ctx.obj['IMGUR']
     print(imgur.comment_delete(1809979027))
+
+# Album
+
+
+@cli.command('albums')
+@click.option('--username', default=None, help='imgur username', required=True)
+@click.pass_context
+def albums(ctx, username):
+    "Account albums"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.albums(username))
+
+
+@cli.command('album_get')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_get(ctx, album_id):
+    "Details about an album"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_get(album_id))
+
+
+@cli.command('album_images')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_images(ctx, album_id):
+    "Album images"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_images(album_id))
+
+
+@cli.command('album_create')
+@click.pass_context
+def album_create(ctx):
+    "Create a new album"
+    imgur = ctx.obj['IMGUR']
+    images = []
+    title = 'Album title'
+    description = 'Album description'
+    privacy = 'hidden'
+    print(imgur.album_create(images, title, description, privacy))
+
+
+@cli.command('album_update')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_update(ctx,  album_id):
+    "Update the information of an album"
+    imgur = ctx.obj['IMGUR']
+    images = ['g38lQAb', 'flF3tuE', 'DZhTxTf', 'qmjQAHV']
+    title = 'Album edited title'
+    description = 'Album edited description'
+    privacy = 'hidden'
+    print(imgur.album_update(album_id, images, title, description, privacy))
+
+
+@cli.command('album_delete')
+@click.option('--delete_hash', default=None, help='Album delete hash', required=True)
+@click.pass_context
+def album_delete(ctx, delete_hash):
+    "Delete an album with a given deletehash."
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_delete(delete_hash))
+
+
+@cli.command('album_add')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_add(ctx,  album_id):
+    "Adds the marked images to an album"
+    imgur = ctx.obj['IMGUR']
+    images = ['g38lQAb', 'flF3tuE', 'DZhTxTf', 'qmjQAHV']
+    print(imgur.album_add(album_id, images))
+
+
+@cli.command('album_remove')
+@click.option('--delete_hash', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_remove(ctx,  delete_hash):
+    "Remove the marked images from an album"
+    imgur = ctx.obj['IMGUR']
+    images = ['g38lQAb', 'flF3tuE']
+    print(imgur.album_remove(delete_hash, images))
 
 # Image
 
