@@ -21,6 +21,7 @@ class Imgur():
         self.auth = Authorize(self.config, self.api_url)
         self.account = Account(self.config, self.api_url)
         self.comment = Comment(self.config, self.api_url)
+        self.album = Album(self.config, self.api_url)
 
     # Authorization
 
@@ -77,18 +78,18 @@ class Imgur():
         else:
             return save_settings(settings_data)
 
-    # Comments
+    # Comment
 
     def comments(self, username, page=0, sort='newest'):
         "Return the comments the user has created"
         return self.comment.comments(username, page, sort)
 
     def comment_get(self, comment_id):
-        "Get information about a specific comment."
+        "Get information about a specific comment"
         return self.comment.comment(comment_id)
 
     def comment_post(self, image_id, comment, parent_id=None):
-        "Creates a new comment or reply a comment, returns the ID of the comment."
+        "Creates a new comment or reply a comment, returns the ID of the comment"
         data = {
             'image_id': image_id,
             'comment': comment
@@ -98,18 +99,32 @@ class Imgur():
         return self.comment.comment_post(data)
 
     def comment_delete(self, comment_id):
-        "Delete a comment by the given id."
+        "Delete a comment by the given id"
         return self.comment.comment_delete(comment_id)
 
     def comment_vote(self, comment_id, vote):
-        "Vote on a comment."
+        "Vote on a comment"
         return self.comment.comment_vote(comment_id, vote)
 
     def comment_report(self, comment_id, reason):
         "Report a comment for being inappropriate"
         return self.comment.comment_report(comment_id, reason)
+    
+    # Album
+    
+    def albums(self, username, page=0):
+        "Get all the albums associated with the account"
+        return self.album.albums(username, page)
+    
+    def album_get(self, album_id):
+        "Get additional information about an album"
+        return self.album.album_get(album_id)
+    
+    def album_images(self, album_id):
+        "Get information about an image in an album"
+        return self.album.album_images(album_id)
 
-    # Images
+    # Image
 
     def images(self, username, page):
         "Get account images"
