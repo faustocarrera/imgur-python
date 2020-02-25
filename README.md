@@ -11,7 +11,9 @@ For more information, check the [project wiki](https://github.com/faustocarrera/
 
 ## Requirements
 
+* Python 3.5
 * [requests](https://2.python-requests.org/en/master/)
+* [fleep](https://github.com/floyernick/fleep-py)
 
 ## Links
 

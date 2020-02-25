@@ -21,7 +21,6 @@ class Authorize():
 
     def generate_access_token(self):
         "Generate access token with the refresh token"
-        response = {}
         url = '{0}/oauth2/token'.format(self.api_url)
         payload = {
             'refresh_token': self.config['refresh_token'],

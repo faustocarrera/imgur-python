@@ -58,7 +58,10 @@ class Comment(ImgurBase):
     def vote(self, comment_id, vote):
         "Vote on a comment"
         url = '{0}/3/comment/{1}/vote/{1}'.format(
-            self.api_url, comment_id, vote)
+            self.api_url,
+            comment_id,
+            vote
+        )
         headers = {
             'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }

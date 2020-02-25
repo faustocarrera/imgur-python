@@ -10,6 +10,7 @@ from .Authorize import Authorize
 from .Comment import Comment
 from .Gallery import Gallery
 from .Image import Image
+from .FileCheck import FileCheck
 
 
 class Imgur():
@@ -22,6 +23,7 @@ class Imgur():
         self.account = Account(self.config, self.api_url)
         self.comment = Comment(self.config, self.api_url)
         self.album = Album(self.config, self.api_url)
+        self.image = Image(self.config, self.api_url)
 
     # Authorization
 
@@ -170,5 +172,55 @@ class Imgur():
         "Get account images"
         if username == self.config['account_username']:
             username = 'me'
-        image = Image(self.config, self.api_url)
-        return image.images(username, page)
+        return self.image.images(username, page)
+
+    def image_get(self, image_id):
+        "Get information about an image"
+        return self.image.image(image_id)
+
+    def image_upload(self, filename, title, description, album=None, disable_audio=1):
+        "Upload a new image or video"
+        files = None
+        payload = {
+            'title': title,
+            'description': description
+        }
+        # album
+        if album is not None:
+            payload['album'] = album
+        # file, video or url
+        if filename.startswith('http'):
+            payload['type'] = 'url'
+            payload['image'] = filename
+        else:
+            file_check = FileCheck()
+            file_info = file_check.check(filename)
+            if file_info is not None:
+                payload['type'] = 'file'
+                if file_info['file_type'] == 'image':
+                    files = {
+                        'image': open(filename, 'rb')
+                    }
+
+                elif file_info['file_type'] == 'video':
+                    files = {
+                        'video': open(filename, 'rb')
+                    }
+                    payload['disable_audio'] = disable_audio
+
+            else:
+                return 'Error: this is not an accepted file format'
+        return self.image.upload(payload, files)
+
+    def image_update(self, image_id, title=None, description=None):
+        "Updates the title or description of an image"
+        payload = {}
+        if title is not None:
+            payload['title'] = title
+        if description is not None:
+            payload['description'] = description
+        return self.image.update(image_id, payload)
+
+    def image_delete(self, image_id):
+        "Deletes an image"
+        return self.image.delete(image_id)

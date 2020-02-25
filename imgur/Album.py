@@ -30,10 +30,7 @@ class Album(ImgurBase):
 
     def album(self, album_id):
         "Get additional information about an album"
-        url = '{0}/3/album/{1}'.format(
-            self.api_url,
-            album_id
-        )
+        url = '{0}/3/album/{1}'.format(self.api_url, album_id)
         headers = {
             'authorization': 'Client-ID {0}'.format(self.config['client_id'])
         }
@@ -42,10 +39,7 @@ class Album(ImgurBase):
 
     def images(self, album_id):
         "Get information about an image in an album"
-        url = '{0}/3/album/{1}/images'.format(
-            self.api_url,
-            album_id
-        )
+        url = '{0}/3/album/{1}/images'.format(self.api_url, album_id)
         headers = {
             'authorization': 'Client-ID {0}'.format(self.config['client_id'])
         }
@@ -78,7 +72,7 @@ class Album(ImgurBase):
         }
         request = requests.delete(url, headers=headers)
         return self.response(request, url)
-    
+
     def add(self, album_id, payload):
         "Adds the marked images to an album"
         url = '{0}/3/album/{1}/add'.format(self.api_url, album_id)
@@ -87,7 +81,7 @@ class Album(ImgurBase):
         }
         request = requests.post(url, headers=headers, data=payload)
         return self.response(request, url)
-        
+
     def remove(self, delete_hash, payload):
         "Remove the marked images from an album"
         url = '{0}/3/album/{1}/remove_images'.format(self.api_url, delete_hash)

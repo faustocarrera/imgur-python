@@ -260,11 +260,57 @@ def album_remove(ctx,  delete_hash):
 @click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
 def images(ctx, username):
-    "Check if the <username> blocked you"
+    "Get account images"
     imgur = ctx.obj['IMGUR']
     if username is None:
         username = ctx.obj['CONFIG']['account_username']
     print(imgur.images(username, 0))
+
+
+@cli.command('image')
+@click.option('--image_id', default=None, help='image id', required=True)
+@click.pass_context
+def image(ctx, image_id):
+    "Get information about an image"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.image_get(image_id))
+
+
+@cli.command('image_upload')
+@click.pass_context
+def image_upload(ctx):
+    "Upload a new image or video"
+    imgur = ctx.obj['IMGUR']
+    # files
+    image = path.realpath('./files/untitled.png')
+    video = path.realpath('./files/0kYG5Y6.mp4')
+    url = 'https://i.imgur.com/SqLVq0w.jpg'
+    # image data
+    title = 'Untitled'
+    description = 'Image description'
+    album = 'zbF0LnN'
+    disable_audio = 0
+    print(imgur.image_upload(image, title, description, album, disable_audio))
+
+
+@cli.command('image_update')
+@click.option('--image_id', default=None, help='image id', required=True)
+@click.pass_context
+def image_update(ctx, image_id):
+    "Updates the title or description of an image"
+    imgur = ctx.obj['IMGUR']
+    # image data
+    title = 'Image updated title'
+    description = 'Image updated description'
+    print(imgur.image_update(image_id, title, description))
+    
+@cli.command('image_delete')
+@click.option('--image_id', default=None, help='image id', required=True)
+@click.pass_context
+def image_delete(ctx, image_id):
+    "Deletes an image"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.image_delete(image_id))
 
 
 def get_config():
