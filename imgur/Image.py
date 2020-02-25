@@ -36,3 +36,20 @@ class Image(ImgurBase):
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
+
+    def upload(self, payload, files=None):
+        "Upload a new image or video"
+        url = '{0}/3/upload'.format(self.api_url)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        if files is not None:
+            request = requests.post(
+                url,
+                headers=headers,
+                data=payload,
+                files=files
+            )
+        else:
+            request = requests.post(url, headers=headers, data=payload)
+        return self.response(request, url)

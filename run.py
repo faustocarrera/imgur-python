@@ -274,6 +274,23 @@ def image(ctx, image_id):
     "Get information about an image"
     imgur = ctx.obj['IMGUR']
     print(imgur.image_get(image_id))
+    
+    
+@cli.command('image_upload')
+@click.pass_context
+def image_upload(ctx):
+    "Upload a new image or video"
+    imgur = ctx.obj['IMGUR']
+    # files
+    image = path.realpath('./files/untitled.png')
+    video = path.realpath('./files/0kYG5Y6.mp4')
+    url = 'https://i.imgur.com/SqLVq0w.jpg'
+    # image data
+    title = 'Untitled'
+    description = 'Video description'
+    album = 'zbF0LnN'
+    disable_audio = 0
+    print(imgur.image_upload(image, title, description, album, disable_audio))
 
 
 def get_config():
