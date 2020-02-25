@@ -201,13 +201,26 @@ class Imgur():
                     files = {
                         'image': open(filename, 'rb')
                     }
-                    
+
                 elif file_info['file_type'] == 'video':
-                    files =  {
+                    files = {
                         'video': open(filename, 'rb')
                     }
                     payload['disable_audio'] = disable_audio
-                
+
             else:
                 return 'Error: this is not an accepted file format'
         return self.image.upload(payload, files)
+
+    def image_update(self, image_id, title=None, description=None):
+        "Updates the title or description of an image"
+        payload = {}
+        if title is not None:
+            payload['title'] = title
+        if description is not None:
+            payload['description'] = description
+        return self.image.update(image_id, payload)
+
+    def image_delete(self, image_id):
+        "Deletes an image"
+        return self.image.delete(image_id)

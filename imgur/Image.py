@@ -53,3 +53,21 @@ class Image(ImgurBase):
         else:
             request = requests.post(url, headers=headers, data=payload)
         return self.response(request, url)
+
+    def update(self, image_id, payload):
+        "Updates the title or description of an image"
+        url = '{0}/3/image/{1}'.format(self.api_url, image_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers, data=payload)
+        return self.response(request, url)
+
+    def delete(self, image_id):
+        "Deletes an image"
+        url = '{0}/3/image/{1}'.format(self.api_url, image_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.delete(url, headers=headers)
+        return self.response(request, url)
