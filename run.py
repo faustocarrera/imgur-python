@@ -288,7 +288,7 @@ def image_upload(ctx):
     # image data
     title = 'Untitled'
     description = 'Image description'
-    album = 'zbF0LnN'
+    album = None
     disable_audio = 0
     print(imgur.image_upload(image, title, description, album, disable_audio))
 
@@ -333,28 +333,28 @@ def image_delete(ctx, tag_name):
     print(imgur.gallery_tag(tag_name))
 
 
-@cli.command('share_image')
+@cli.command('gallery_image')
 @click.pass_context
 def share_image(ctx):
     "Share an Album or Image to the Gallery"
     imgur = ctx.obj['IMGUR']
-    image_id = 'vSYkzwE'
+    image_id = '6ZYihph'
     title = 'It was a joke'
     mature = 0
     tags = 'joke,funny,penguins,midly_interesting'
     print(imgur.gallery_image(image_id, title, mature, tags))
 
 
-@cli.command('share_album')
+@cli.command('gallery_album')
 @click.pass_context
 def share_album(ctx):
     "Share an Album or Image to the Gallery"
     imgur = ctx.obj['IMGUR']
-    image_id = 'zbF0LnN'
+    album_id = 'zbF0LnN'
     title = 'I need a home with this swimming pool'
     mature = 0
     tags = 'midly_interesting,pool,swimmingpool,home'
-    print(imgur.gallery_album(image_id, title, mature, tags))
+    print(imgur.gallery_album(album_id, title, mature, tags))
 
 
 @cli.command('gallery_remove')

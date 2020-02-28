@@ -19,3 +19,22 @@ For more information, check the [project wiki](https://github.com/faustocarrera/
 
 * [imgur API documentation](https://apidocs.imgur.com/?version=latest#intro)
 * [API client wiki](https://github.com/faustocarrera/imgur-python/wiki)
+
+## How to publish something and share it with the community?
+
+* upload a bunch of images
+* add them to an album
+* share it
+
+```
+from os import path
+from imgur import Imgur
+
+imgur = Imgur({'client_id': 'cf8c57ca8......'})
+image = imgur.image_upload(path.realpath('./image.png'), 'Untitled', 'My first image upload')
+image_id = image['response']['data']['id']
+album =  imgur.album_create([image_id], 'My first album', 'Something funny', 'public')
+album_id = album['response']['data']['id']
+response = imgur.gallery_album(album_id, 'This is going down on the sub', 0, 'funny,midly_interesting')
+print(response)
+```

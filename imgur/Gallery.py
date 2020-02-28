@@ -32,3 +32,30 @@ class Gallery(ImgurBase):
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
+
+    def image(self, image_id, payload):
+        "Share an Album or Image to the Gallery"
+        url = '{0}/3/gallery/image/{1}'.format(self.api_url, image_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers, data=payload)
+        return self.response(request, url)
+
+    def album(self, album_id, payload):
+        "Share an Album or Image to the Gallery"
+        url = '{0}/3/gallery/album/{1}'.format(self.api_url, album_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers, data=payload)
+        return self.response(request, url)
+
+    def remove(self, gallery_id):
+        "Remove an image from the public gallery"
+        url = '{0}/3/gallery/{1}'.format(self.api_url, gallery_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.delete(url, headers=headers)
+        return self.response(request, url)

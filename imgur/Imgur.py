@@ -239,11 +239,23 @@ class Imgur():
 
     def gallery_image(self, image_id, title, mature, tags):
         "Share an Album or Image to the Gallery"
-        return self.gallery.image(image_id, title, mature, tags)
+        payload = {
+            'title': title,
+            'mature': mature,
+            'tags': tags,
+            'terms': 1
+        }
+        return self.gallery.image(image_id, payload)
 
     def gallery_album(self, album_id, title, mature, tags):
         "Share an Album or Image to the Gallery"
-        return self.gallery.album(album_id, title, mature, tags)
+        payload = {
+            'title': title,
+            'mature': mature,
+            'tags': tags,
+            'terms': 1
+        }
+        return self.gallery.album(album_id, payload)
 
     def gallery_remove(self, gallery_id):
         "Remove an image from the public gallery"
