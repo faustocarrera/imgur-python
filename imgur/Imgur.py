@@ -14,6 +14,7 @@ from .FileCheck import FileCheck
 
 
 class Imgur():
+    "Imgur classes entry point"
 
     def __init__(self, config):
         self.config = config
@@ -24,6 +25,7 @@ class Imgur():
         self.comment = Comment(self.config, self.api_url)
         self.album = Album(self.config, self.api_url)
         self.image = Image(self.config, self.api_url)
+        self.gallery = Gallery(self.config, self.api_url)
 
     # Authorization
 
@@ -224,3 +226,25 @@ class Imgur():
     def image_delete(self, image_id):
         "Deletes an image"
         return self.image.delete(image_id)
+
+    # Gallery
+
+    def gallery_tags(self):
+        "Gets a list of default tags"
+        return self.gallery.tags()
+
+    def gallery_tag(self, tag_name):
+        "Gets metadata about a tag"
+        return self.gallery.tag(tag_name)
+
+    def gallery_image(self, image_id, title, mature, tags):
+        "Share an Album or Image to the Gallery"
+        return self.gallery.image(image_id, title, mature, tags)
+
+    def gallery_album(self, album_id, title, mature, tags):
+        "Share an Album or Image to the Gallery"
+        return self.gallery.album(album_id, title, mature, tags)
+
+    def gallery_remove(self, gallery_id):
+        "Remove an image from the public gallery"
+        return self.gallery.remove(gallery_id)

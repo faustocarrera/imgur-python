@@ -303,7 +303,8 @@ def image_update(ctx, image_id):
     title = 'Image updated title'
     description = 'Image updated description'
     print(imgur.image_update(image_id, title, description))
-    
+
+
 @cli.command('image_delete')
 @click.option('--image_id', default=None, help='image id', required=True)
 @click.pass_context
@@ -311,6 +312,60 @@ def image_delete(ctx, image_id):
     "Deletes an image"
     imgur = ctx.obj['IMGUR']
     print(imgur.image_delete(image_id))
+
+# Gallery
+
+
+@cli.command('gallery_tags')
+@click.pass_context
+def image_delete(ctx):
+    "Gets a list of default tags"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.gallery_tags())
+
+
+@cli.command('gallery_tag')
+@click.option('--tag_name', default=None, help='tag name', required=True)
+@click.pass_context
+def image_delete(ctx, tag_name):
+    "Gets metadata about a tag"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.gallery_tag(tag_name))
+
+
+@cli.command('share_image')
+@click.pass_context
+def share_image(ctx):
+    "Share an Album or Image to the Gallery"
+    imgur = ctx.obj['IMGUR']
+    image_id = 'vSYkzwE'
+    title = 'It was a joke'
+    mature = 0
+    tags = 'joke,funny,penguins,midly_interesting'
+    print(imgur.gallery_image(image_id, title, mature, tags))
+
+
+@cli.command('share_album')
+@click.pass_context
+def share_album(ctx):
+    "Share an Album or Image to the Gallery"
+    imgur = ctx.obj['IMGUR']
+    image_id = 'zbF0LnN'
+    title = 'I need a home with this swimming pool'
+    mature = 0
+    tags = 'midly_interesting,pool,swimmingpool,home'
+    print(imgur.gallery_album(image_id, title, mature, tags))
+
+
+@cli.command('gallery_remove')
+@click.option('--gallery_id', default=None, help='gallery id', required=True)
+@click.pass_context
+def image_remove(ctx, gallery_id):
+    "Remove an image from the public gallery"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.gallery_remove(gallery_id))
+
+# Config
 
 
 def get_config():

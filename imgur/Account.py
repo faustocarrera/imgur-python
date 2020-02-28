@@ -9,7 +9,7 @@ from .ImgurBase import ImgurBase
 
 
 class Account(ImgurBase):
-    "Account"
+    "Class to handle the imgur account"
 
     def __init__(self, config, api_url):
         self.config = config

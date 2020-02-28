@@ -9,6 +9,7 @@ from .ImgurBase import ImgurBase
 
 
 class Comment(ImgurBase):
+    "Class to handle the comments of the imgur account"
 
     def __init__(self, config, api_url):
         self.config = config
