@@ -8,7 +8,7 @@ from os import path
 import json
 import webbrowser
 import click
-from imgur import Imgur
+from imgur_python import Imgur
 
 
 @click.group(chain=False, invoke_without_command=True)
