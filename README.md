@@ -26,6 +26,12 @@ For more information, check the [project wiki](https://github.com/faustocarrera/
 $ python setup.py install
 ```
 
+with pip
+
+```
+$ pip install imgur-python
+```
+
 ## How to publish something and share it with the community?
 
 * upload a bunch of images

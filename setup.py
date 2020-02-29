@@ -16,12 +16,14 @@ requirements = [
     'requests>=2.0',
     'fleep>=1.0'
 ]
-long_description = open('README.md').read()
+with open('README.md', 'r') as fh:
+    long_description = fh.read()
     
 config = {
     'name': 'imgur_python',
     'description': 'A Python client for the Imgur API',
     'long_description': long_description,
+    'long_description_content_type': 'text/markdown',
     'license': 'GPLv3+',
     'author': 'Fausto Carrera',
     'author_email': 'fausto.carrera@gmx.com',
@@ -40,7 +42,8 @@ config = {
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: GNU General Public License (GPL)'
-    ]
+    ],
+    'python_requires': '>=3.1'
 }
 
 setup(**config)
