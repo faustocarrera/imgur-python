@@ -24,7 +24,7 @@ config = {
     'long_description': long_description,
     'license': 'GPLv3+',
     'author': 'Fausto Carrera',
-    'author_email': 'fausto.carrera.f@gmail.com',
+    'author_email': 'fausto.carrera@gmx.com',
     'url': 'https://github.com/faustocarrera/imgur-python/wiki',
     'download_url': 'https://github.com/faustocarrera/imgur-python',
     'version': version,
