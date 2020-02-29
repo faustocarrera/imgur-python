@@ -20,6 +20,12 @@ For more information, check the [project wiki](https://github.com/faustocarrera/
 * [imgur API documentation](https://apidocs.imgur.com/?version=latest#intro)
 * [API client wiki](https://github.com/faustocarrera/imgur-python/wiki)
 
+## Install
+
+```
+$ python setup.py install
+```
+
 ## How to publish something and share it with the community?
 
 * upload a bunch of images
