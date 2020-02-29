@@ -28,7 +28,7 @@ For more information, check the [project wiki](https://github.com/faustocarrera/
 
 ```
 from os import path
-from imgur import Imgur
+from imgur_python import Imgur
 
 imgur = Imgur({'client_id': 'cf8c57ca8......'})
 image = imgur.image_upload(path.realpath('./image.png'), 'Untitled', 'My first image upload')

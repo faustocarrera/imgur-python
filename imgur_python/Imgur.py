@@ -16,7 +16,10 @@ from .FileCheck import FileCheck
 class Imgur():
     "Imgur classes entry point"
 
+    __version__ = '0.1.0'
+
     def __init__(self, config):
+        # config
         self.config = config
         self.api_url = 'https://api.imgur.com'
         # start the party
@@ -26,6 +29,12 @@ class Imgur():
         self.album = Album(self.config, self.api_url)
         self.image = Image(self.config, self.api_url)
         self.gallery = Gallery(self.config, self.api_url)
+
+    # Version
+
+    def version(self):
+        "API client version"
+        return self.__version__
 
     # Authorization
 

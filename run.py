@@ -22,6 +22,15 @@ def cli(ctx):
         ctx.obj['CONFIG'] = get_config()
         ctx.obj['IMGUR'] = Imgur(get_config())
 
+# Version
+
+@cli.command('version')
+@click.pass_context
+def version(ctx):
+    "Generate authorization link"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.version())
+
 # Auth
 
 
