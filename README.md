@@ -3,7 +3,7 @@ imgur-python
 
 A Python client for the Imgur API.
 
-The original imgurpython project is no longer supported, so, I decided to create my own python client for the [Imgur API](https://apidocs.imgur.com/?version=latest).
+The original imgurpython project is no longer supported, so, I decided to create my own python client for the [Imgur API](https://apidocs.imgur_client.com/?version=latest).
 
 __Disclaimer:__ This is a work in progress. In this first version, I'm not gonna implement all the API calls, only the necessary ones to interact with imgur and be able to create albums, upload images and share them on the site.
 
@@ -17,7 +17,7 @@ For more information, check the [project wiki](https://github.com/faustocarrera/
 
 ## Links
 
-* [imgur API documentation](https://apidocs.imgur.com/?version=latest#intro)
+* [imgur API documentation](https://apidocs.imgur_client.com/?version=latest#intro)
 * [API client wiki](https://github.com/faustocarrera/imgur-python/wiki)
 
 ## Install
@@ -42,11 +42,11 @@ $ pip install imgur-python
 from os import path
 from imgur_python import Imgur
 
-imgur = Imgur({'client_id': 'cf8c57ca8......'})
-image = imgur.image_upload(path.realpath('./image.png'), 'Untitled', 'My first image upload')
+imgur_client = Imgur({'client_id': 'cf8c57ca8......'})
+image = imgur_client.image_upload(path.realpath('./image.png'), 'Untitled', 'My first image upload')
 image_id = image['response']['data']['id']
-album =  imgur.album_create([image_id], 'My first album', 'Something funny', 'public')
+album =  imgur_client.album_create([image_id], 'My first album', 'Something funny', 'public')
 album_id = album['response']['data']['id']
-response = imgur.gallery_album(album_id, 'This is going down on the sub', 0, 'funny,midly_interesting')
+response = imgur_client.gallery_album(album_id, 'This is going down on the sub', 0, 'funny,midly_interesting')
 print(response)
 ```
