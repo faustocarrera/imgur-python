@@ -90,6 +90,10 @@ class Imgur():
             return self.account.settings()
         else:
             return self.account.save(settings_data)
+        
+    def gallery_profile(self, username):
+        "Returns the totals for the gallery profile"
+        return self.account.gallery_profile(username)
 
     # Comment
 

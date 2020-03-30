@@ -131,3 +131,15 @@ class Account(ImgurBase):
         }
         request = requests.put(url, headers=headers, data=payload)
         return self.response(request, url)
+
+    def gallery_profile(self, username):
+        "Returns the totals for the gallery profile"
+        url = '{0}/3/account/{1}/settings'.format(
+            self.api_url,
+            username
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.response(request, url)

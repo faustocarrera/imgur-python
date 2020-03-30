@@ -143,7 +143,16 @@ def settings(ctx):
     "Account settings"
     imgur = ctx.obj['IMGUR']
     print(imgur.settings())
+    
+@cli.command('gallery_profile')
+@click.option('--username', default=None, help='imgur username', required=True)
+@click.pass_context
+def settings(ctx, username):
+    "Gallery profile"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.gallery_profile(username))
 
+# Comments
 
 @cli.command('comments')
 @click.option('--username', default=None, help='imgur username', required=True)
