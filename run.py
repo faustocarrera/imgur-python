@@ -151,6 +151,22 @@ def settings(ctx, username):
     "Gallery profile"
     imgur = ctx.obj['IMGUR']
     print(imgur.gallery_profile(username))
+    
+@cli.command('follow_tag')
+@click.option('--tag', default=None, help='imgur tag', required=True)
+@click.pass_context
+def settings(ctx, tag):
+    "Follow tag"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.follow_tag(tag))
+    
+@cli.command('unfollow_tag')
+@click.option('--tag', default=None, help='imgur tag', required=True)
+@click.pass_context
+def settings(ctx, tag):
+    "Unfollow tag"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.unfollow_tag(tag))
 
 # Comments
 
