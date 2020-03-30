@@ -90,10 +90,18 @@ class Imgur():
             return self.account.settings()
         else:
             return self.account.save(settings_data)
-        
+
     def gallery_profile(self, username):
         "Returns the totals for the gallery profile"
         return self.account.gallery_profile(username)
+
+    def follow_tag(self, tag):
+        "Follows the <tag> specified for the currently logged in user"
+        return self.account.follow_tag(tag)
+
+    def unfollow_tag(self, tag):
+        "Unfollows the <tag> specified for the currently logged in user"
+        return self.account.unfollow_tag(tag)
 
     # Comment
 

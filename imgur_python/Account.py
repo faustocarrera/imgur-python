@@ -143,3 +143,27 @@ class Account(ImgurBase):
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
+
+    def follow_tag(self, tagname):
+        "Follows the <tagname> specified for the currently logged in user"
+        url = '{0}/3/account/me/follow/tag/{1}'.format(
+            self.api_url,
+            tagname
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers)
+        return self.response(request, url)
+
+    def unfollow_tag(self, tagname):
+        "Unfollows the <tagname> specified for the currently logged in user"
+        url = '{0}/3/account/me/follow/tag/{1}'.format(
+            self.api_url,
+            tagname
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.delete(url, headers=headers)
+        return self.response(request, url)
