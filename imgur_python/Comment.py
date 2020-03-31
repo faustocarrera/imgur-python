@@ -27,11 +27,14 @@ class Comment(ImgurBase):
             'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }
         request = requests.get(url, headers=headers)
-        return self.response(request, url)
+        response = self.response(request, url)
+        # the total number of comments
+        response['response']['total'] = self.count(username)
+        return response
 
     def comment(self, comment_id):
         "Get information about a specific comment"
-        url = '{0}/3/comment/{1}/replies'.format(self.api_url, comment_id)
+        url = '{0}/3/comment/{1}'.format(self.api_url, comment_id)
         headers = {
             'authorization': 'Client-ID {0}'.format(self.config['client_id'])
         }
@@ -80,3 +83,44 @@ class Comment(ImgurBase):
         }
         request = requests.post(url, headers=headers, data=payload)
         return self.response(request, url)
+
+    def comment_ids(self, username, page, sort):
+        "Return an array of all of the comment IDs"
+        url = '{0}/3/account/{1}/comments/ids/{2}/{3}'.format(
+            self.api_url,
+            username,
+            sort,
+            page
+        )
+        headers = {
+            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+        }
+        request = requests.get(url, headers=headers)
+        response = self.response(request, url)
+        # the total number of comments
+        response['response']['total'] = self.count(username)
+        return response
+
+    def comment_replies(self, comment_id):
+        "Get the comment with all of the replies for the comment"
+        url = '{0}/3/comment/{1}/replies'.format(
+            self.api_url,
+            comment_id
+        )
+        headers = {
+            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.response(request, url)
+
+    def count(self, username):
+        "Return a count of all of the comments associated with the account"
+        url = '{0}/3/account/{1}/comments/count'.format(
+            self.api_url,
+            username
+        )
+        headers = {
+            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.data(request)

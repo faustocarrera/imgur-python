@@ -24,6 +24,7 @@ def cli(ctx):
 
 # Version
 
+
 @cli.command('version')
 @click.pass_context
 def version(ctx):
@@ -143,7 +144,8 @@ def settings(ctx):
     "Account settings"
     imgur = ctx.obj['IMGUR']
     print(imgur.settings())
-    
+
+
 @cli.command('gallery_profile')
 @click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
@@ -151,7 +153,8 @@ def settings(ctx, username):
     "Gallery profile"
     imgur = ctx.obj['IMGUR']
     print(imgur.gallery_profile(username))
-    
+
+
 @cli.command('follow_tag')
 @click.option('--tag', default=None, help='imgur tag', required=True)
 @click.pass_context
@@ -159,7 +162,8 @@ def settings(ctx, tag):
     "Follow tag"
     imgur = ctx.obj['IMGUR']
     print(imgur.follow_tag(tag))
-    
+
+
 @cli.command('unfollow_tag')
 @click.option('--tag', default=None, help='imgur tag', required=True)
 @click.pass_context
@@ -168,7 +172,16 @@ def settings(ctx, tag):
     imgur = ctx.obj['IMGUR']
     print(imgur.unfollow_tag(tag))
 
+
+@cli.command('notifications')
+@click.pass_context
+def settings(ctx):
+    "Unfollow tag"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.notifications())
+
 # Comments
+
 
 @cli.command('comments')
 @click.option('--username', default=None, help='imgur username', required=True)
@@ -203,6 +216,24 @@ def comment_delete(ctx):
     "Delete a comment"
     imgur = ctx.obj['IMGUR']
     print(imgur.comment_delete(1809979027))
+
+
+@cli.command('comment_ids')
+@click.option('--username', default=None, help='imgur username', required=True)
+@click.pass_context
+def comments(ctx, username):
+    "Account comments"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comment_ids(username))
+
+
+@cli.command('comment_replies')
+@click.option('--comment_id', default=None, help='Comment ID', required=True)
+@click.pass_context
+def comments(ctx, comment_id):
+    "Account comments"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comment_replies(comment_id))
 
 # Album
 

@@ -102,6 +102,10 @@ class Imgur():
     def unfollow_tag(self, tag):
         "Unfollows the <tag> specified for the currently logged in user"
         return self.account.unfollow_tag(tag)
+    
+    def notifications(self, new=False):
+        "Returns all of the reply notifications for the user"
+        return self.account.notifications(new)
 
     # Comment
 
@@ -134,6 +138,14 @@ class Imgur():
     def comment_report(self, comment_id, reason):
         "Report a comment for being inappropriate"
         return self.comment.report(comment_id, reason)
+
+    def comment_ids(self, username, page=0, sort='newest'):
+        "Return an array of all of the comment IDs"
+        return self.comment.comment_ids(username, page, sort)
+
+    def comment_replies(self, comment_id):
+        "Returns all of the reply notifications for the user"
+        return self.comment.comment_replies(comment_id)
 
     # Album
 
