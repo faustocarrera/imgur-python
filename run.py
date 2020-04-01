@@ -184,12 +184,11 @@ def settings(ctx):
 
 
 @cli.command('comments')
-@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
-def comments(ctx, username):
+def comments(ctx):
     "Account comments"
     imgur = ctx.obj['IMGUR']
-    print(imgur.comments(username))
+    print(imgur.comments())
 
 
 @cli.command('comment')
@@ -219,12 +218,11 @@ def comment_delete(ctx):
 
 
 @cli.command('comment_ids')
-@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
-def comments(ctx, username):
+def comments(ctx):
     "Account comments"
     imgur = ctx.obj['IMGUR']
-    print(imgur.comment_ids(username))
+    print(imgur.comment_ids())
 
 
 @cli.command('comment_replies')
@@ -239,12 +237,11 @@ def comments(ctx, comment_id):
 
 
 @cli.command('albums')
-@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
-def albums(ctx, username):
+def albums(ctx):
     "Account albums"
     imgur = ctx.obj['IMGUR']
-    print(imgur.albums(username))
+    print(imgur.albums())
 
 
 @cli.command('album_get')
@@ -318,18 +315,31 @@ def album_remove(ctx,  delete_hash):
     images = ['g38lQAb', 'flF3tuE']
     print(imgur.album_remove(delete_hash, images))
 
+
+@cli.command('album_ids')
+@click.pass_context
+def albums(ctx):
+    "Album ids"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_ids())
+
+@cli.command('album_fav')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_add(ctx,  album_id):
+    "Mark an album as favorite"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_fav(album_id))
+
 # Image
 
 
 @cli.command('images')
-@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
-def images(ctx, username):
+def images(ctx):
     "Get account images"
     imgur = ctx.obj['IMGUR']
-    if username is None:
-        username = ctx.obj['CONFIG']['account_username']
-    print(imgur.images(username, 0))
+    print(imgur.images())
 
 
 @cli.command('image')

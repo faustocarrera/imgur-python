@@ -15,11 +15,10 @@ class Image(ImgurBase):
         self.config = config
         self.api_url = api_url
 
-    def images(self, username, page):
+    def images(self, page):
         "Get account images"
-        url = '{0}/3/account/{1}/images/{2}'.format(
+        url = '{0}/3/account/me/images/{1}'.format(
             self.api_url,
-            username,
             page
         )
         headers = {

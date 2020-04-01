@@ -109,9 +109,9 @@ class Imgur():
 
     # Comment
 
-    def comments(self, username, page=0, sort='newest'):
+    def comments(self, page=0, sort='newest'):
         "Return the comments the user has created"
-        return self.comment.comments(username, page, sort)
+        return self.comment.comments(page, sort)
 
     def comment_get(self, comment_id):
         "Get information about a specific comment"
@@ -139,9 +139,9 @@ class Imgur():
         "Report a comment for being inappropriate"
         return self.comment.report(comment_id, reason)
 
-    def comment_ids(self, username, page=0, sort='newest'):
+    def comment_ids(self, page=0, sort='newest'):
         "Return an array of all of the comment IDs"
-        return self.comment.comment_ids(username, page, sort)
+        return self.comment.comment_ids(page, sort)
 
     def comment_replies(self, comment_id):
         "Returns all of the reply notifications for the user"
@@ -149,9 +149,9 @@ class Imgur():
 
     # Album
 
-    def albums(self, username, page=0):
+    def albums(self, page=0):
         "Get all the albums associated with the account"
-        return self.album.albums(username, page)
+        return self.album.albums(page)
 
     def album_get(self, album_id):
         "Get additional information about an album"
@@ -200,14 +200,20 @@ class Imgur():
             'ids[]': images
         }
         return self.album.remove(delete_hash, payload)
+    
+    def album_ids(self, page=0):
+        "Return an array of all of the album IDs"
+        return self.album.album_ids(page)
+    
+    def album_fav(self, album_id):
+        "Favorite an album with a given ID"
+        return self.album.album_fav(album_id)
 
     # Image
 
-    def images(self, username, page):
+    def images(self, page=0):
         "Get account images"
-        if username == self.config['account_username']:
-            username = 'me'
-        return self.image.images(username, page)
+        return self.image.images(page)
 
     def image_get(self, image_id):
         "Get information about an image"

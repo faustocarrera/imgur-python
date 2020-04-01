@@ -15,11 +15,11 @@ class Comment(ImgurBase):
         self.config = config
         self.api_url = api_url
 
-    def comments(self, username, page=0, sort='newest'):
+    def comments(self, page=0, sort='newest'):
         "Return the comments the user has created"
         url = '{0}/3/account/{1}/comments/{2}/{3}'.format(
             self.api_url,
-            username,
+            self.config['account_username'],
             sort,
             page
         )
@@ -29,7 +29,7 @@ class Comment(ImgurBase):
         request = requests.get(url, headers=headers)
         response = self.response(request, url)
         # the total number of comments
-        response['response']['total'] = self.count(username)
+        response['response']['total'] = self.comment_count()
         return response
 
     def comment(self, comment_id):
@@ -84,11 +84,11 @@ class Comment(ImgurBase):
         request = requests.post(url, headers=headers, data=payload)
         return self.response(request, url)
 
-    def comment_ids(self, username, page, sort):
+    def comment_ids(self, page, sort):
         "Return an array of all of the comment IDs"
         url = '{0}/3/account/{1}/comments/ids/{2}/{3}'.format(
             self.api_url,
-            username,
+            self.config['account_username'],
             sort,
             page
         )
@@ -98,7 +98,7 @@ class Comment(ImgurBase):
         request = requests.get(url, headers=headers)
         response = self.response(request, url)
         # the total number of comments
-        response['response']['total'] = self.count(username)
+        response['response']['total'] = self.comment_count()
         return response
 
     def comment_replies(self, comment_id):
@@ -113,11 +113,11 @@ class Comment(ImgurBase):
         request = requests.get(url, headers=headers)
         return self.response(request, url)
 
-    def count(self, username):
+    def comment_count(self):
         "Return a count of all of the comments associated with the account"
         url = '{0}/3/account/{1}/comments/count'.format(
             self.api_url,
-            username
+            self.config['account_username']
         )
         headers = {
             'authorization': 'Client-ID {0}'.format(self.config['client_id'])
