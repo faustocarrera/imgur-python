@@ -28,7 +28,7 @@ def cli(ctx):
 @cli.command('version')
 @click.pass_context
 def version(ctx):
-    "Generate authorization link"
+    "Library version"
     imgur = ctx.obj['IMGUR']
     print(imgur.version())
 
@@ -387,6 +387,21 @@ def image_delete(ctx, image_id):
     "Deletes an image"
     imgur = ctx.obj['IMGUR']
     print(imgur.image_delete(image_id))
+    
+@cli.command('image_ids')
+@click.pass_context
+def image_ids(ctx):
+    "Returns an array of Image IDs"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.image_ids())
+    
+@cli.command('image_fav')
+@click.option('--image_id', default=None, help='image id', required=True)
+@click.pass_context
+def image_fav(ctx, image_id):
+    "Favorite an image with the given ID"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.image_fav(image_id))
 
 # Gallery
 

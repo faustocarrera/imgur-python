@@ -16,7 +16,7 @@ from .FileCheck import FileCheck
 class Imgur():
     "Imgur classes entry point"
 
-    __version__ = '0.1.0'
+    __version__ = '0.2.0'
 
     def __init__(self, config):
         # config
@@ -34,7 +34,7 @@ class Imgur():
 
     def version(self):
         "API client version"
-        return self.__version__
+        return 'Imgur API client {0}'.format(self.__version__)
 
     # Authorization
 
@@ -265,6 +265,14 @@ class Imgur():
     def image_delete(self, image_id):
         "Deletes an image"
         return self.image.delete(image_id)
+    
+    def image_ids(self, page=0):
+        "Returns an array of Image IDs that are associated with the account"
+        return self.image.image_ids(page)
+    
+    def image_fav(self, image_id):
+        "Favorite an image with the given ID"
+        return self.image.image_fav(image_id)
 
     # Gallery
 
