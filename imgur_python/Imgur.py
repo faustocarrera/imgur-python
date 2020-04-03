@@ -16,7 +16,7 @@ from .FileCheck import FileCheck
 class Imgur():
     "Imgur classes entry point"
 
-    __version__ = '0.1.0'
+    __version__ = '0.2.0'
 
     def __init__(self, config):
         # config
@@ -34,7 +34,7 @@ class Imgur():
 
     def version(self):
         "API client version"
-        return self.__version__
+        return 'Imgur API client {0}'.format(self.__version__)
 
     # Authorization
 
@@ -102,12 +102,16 @@ class Imgur():
     def unfollow_tag(self, tag):
         "Unfollows the <tag> specified for the currently logged in user"
         return self.account.unfollow_tag(tag)
+    
+    def notifications(self, new=False):
+        "Returns all of the reply notifications for the user"
+        return self.account.notifications(new)
 
     # Comment
 
-    def comments(self, username, page=0, sort='newest'):
+    def comments(self, page=0, sort='newest'):
         "Return the comments the user has created"
-        return self.comment.comments(username, page, sort)
+        return self.comment.comments(page, sort)
 
     def comment_get(self, comment_id):
         "Get information about a specific comment"
@@ -135,11 +139,19 @@ class Imgur():
         "Report a comment for being inappropriate"
         return self.comment.report(comment_id, reason)
 
+    def comment_ids(self, page=0, sort='newest'):
+        "Return an array of all of the comment IDs"
+        return self.comment.comment_ids(page, sort)
+
+    def comment_replies(self, comment_id):
+        "Returns all of the reply notifications for the user"
+        return self.comment.comment_replies(comment_id)
+
     # Album
 
-    def albums(self, username, page=0):
+    def albums(self, page=0):
         "Get all the albums associated with the account"
-        return self.album.albums(username, page)
+        return self.album.albums(page)
 
     def album_get(self, album_id):
         "Get additional information about an album"
@@ -188,14 +200,20 @@ class Imgur():
             'ids[]': images
         }
         return self.album.remove(delete_hash, payload)
+    
+    def album_ids(self, page=0):
+        "Return an array of all of the album IDs"
+        return self.album.album_ids(page)
+    
+    def album_fav(self, album_id):
+        "Favorite an album with a given ID"
+        return self.album.album_fav(album_id)
 
     # Image
 
-    def images(self, username, page):
+    def images(self, page=0):
         "Get account images"
-        if username == self.config['account_username']:
-            username = 'me'
-        return self.image.images(username, page)
+        return self.image.images(page)
 
     def image_get(self, image_id):
         "Get information about an image"
@@ -247,6 +265,14 @@ class Imgur():
     def image_delete(self, image_id):
         "Deletes an image"
         return self.image.delete(image_id)
+    
+    def image_ids(self, page=0):
+        "Returns an array of Image IDs that are associated with the account"
+        return self.image.image_ids(page)
+    
+    def image_fav(self, image_id):
+        "Favorite an image with the given ID"
+        return self.image.image_fav(image_id)
 
     # Gallery
 

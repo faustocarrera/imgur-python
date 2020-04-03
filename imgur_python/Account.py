@@ -167,3 +167,18 @@ class Account(ImgurBase):
         }
         request = requests.delete(url, headers=headers)
         return self.response(request, url)
+
+    def notifications(self, new):
+        "Returns all of the reply notifications for the user"
+        url = '{0}/3/account/{1}/notifications/replies'.format(
+            self.api_url,
+            self.config['account_username']
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        payload = {
+            'new': new
+        }
+        request = requests.get(url, headers=headers, data=payload)
+        return self.response(request, url)

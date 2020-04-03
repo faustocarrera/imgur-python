@@ -15,18 +15,21 @@ class Album(ImgurBase):
         self.config = config
         self.api_url = api_url
 
-    def albums(self, username, page):
+    def albums(self, page):
         "Get all the albums associated with the account"
         url = '{0}/3/account/{1}/albums/{2}'.format(
             self.api_url,
-            username,
+            self.config['account_username'],
             page
         )
         headers = {
             'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }
         request = requests.get(url, headers=headers)
-        return self.response(request, url)
+        response = self.response(request, url)
+        # the total number of comments
+        response['response']['total'] = self.album_count()
+        return response
 
     def album(self, album_id):
         "Get additional information about an album"
@@ -90,3 +93,40 @@ class Album(ImgurBase):
         }
         request = requests.post(url, headers=headers, data=payload)
         return self.response(request, url)
+
+    def album_ids(self, page):
+        "Return an array of all of the album IDs"
+        url = '{0}/3/account/{1}/albums/ids/{2}'.format(
+            self.api_url,
+            self.config['account_username'],
+            page
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.get(url, headers=headers)
+        response = self.response(request, url)
+        # the total number of comments
+        response['response']['total'] = self.album_count()
+        return response
+
+    def album_fav(self, album_id):
+        "Favorite an album with a given ID"
+        url = '{0}/3/album/{1}/favorite'.format(self.api_url, album_id)
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.post(url, headers=headers)
+        return self.response(request, url)
+
+    def album_count(self):
+        "Return the total number of albums associated with the account"
+        url = '{0}/3/account/{1}/albums/count'.format(
+            self.api_url,
+            self.config['account_username']
+        )
+        headers = {
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
+        }
+        request = requests.get(url, headers=headers)
+        return self.data(request)

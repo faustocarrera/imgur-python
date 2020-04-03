@@ -24,10 +24,11 @@ def cli(ctx):
 
 # Version
 
+
 @cli.command('version')
 @click.pass_context
 def version(ctx):
-    "Generate authorization link"
+    "Library version"
     imgur = ctx.obj['IMGUR']
     print(imgur.version())
 
@@ -143,7 +144,8 @@ def settings(ctx):
     "Account settings"
     imgur = ctx.obj['IMGUR']
     print(imgur.settings())
-    
+
+
 @cli.command('gallery_profile')
 @click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
@@ -151,7 +153,8 @@ def settings(ctx, username):
     "Gallery profile"
     imgur = ctx.obj['IMGUR']
     print(imgur.gallery_profile(username))
-    
+
+
 @cli.command('follow_tag')
 @click.option('--tag', default=None, help='imgur tag', required=True)
 @click.pass_context
@@ -159,7 +162,8 @@ def settings(ctx, tag):
     "Follow tag"
     imgur = ctx.obj['IMGUR']
     print(imgur.follow_tag(tag))
-    
+
+
 @cli.command('unfollow_tag')
 @click.option('--tag', default=None, help='imgur tag', required=True)
 @click.pass_context
@@ -168,15 +172,23 @@ def settings(ctx, tag):
     imgur = ctx.obj['IMGUR']
     print(imgur.unfollow_tag(tag))
 
+
+@cli.command('notifications')
+@click.pass_context
+def settings(ctx):
+    "Unfollow tag"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.notifications())
+
 # Comments
 
+
 @cli.command('comments')
-@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
-def comments(ctx, username):
+def comments(ctx):
     "Account comments"
     imgur = ctx.obj['IMGUR']
-    print(imgur.comments(username))
+    print(imgur.comments())
 
 
 @cli.command('comment')
@@ -204,16 +216,32 @@ def comment_delete(ctx):
     imgur = ctx.obj['IMGUR']
     print(imgur.comment_delete(1809979027))
 
+
+@cli.command('comment_ids')
+@click.pass_context
+def comments(ctx):
+    "Account comments"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comment_ids())
+
+
+@cli.command('comment_replies')
+@click.option('--comment_id', default=None, help='Comment ID', required=True)
+@click.pass_context
+def comments(ctx, comment_id):
+    "Account comments"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.comment_replies(comment_id))
+
 # Album
 
 
 @cli.command('albums')
-@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
-def albums(ctx, username):
+def albums(ctx):
     "Account albums"
     imgur = ctx.obj['IMGUR']
-    print(imgur.albums(username))
+    print(imgur.albums())
 
 
 @cli.command('album_get')
@@ -287,18 +315,32 @@ def album_remove(ctx,  delete_hash):
     images = ['g38lQAb', 'flF3tuE']
     print(imgur.album_remove(delete_hash, images))
 
+
+@cli.command('album_ids')
+@click.pass_context
+def albums(ctx):
+    "Album ids"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_ids())
+
+
+@cli.command('album_fav')
+@click.option('--album_id', default=None, help='Album ID', required=True)
+@click.pass_context
+def album_add(ctx,  album_id):
+    "Mark an album as favorite"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.album_fav(album_id))
+
 # Image
 
 
 @cli.command('images')
-@click.option('--username', default=None, help='imgur username', required=True)
 @click.pass_context
-def images(ctx, username):
+def images(ctx):
     "Get account images"
     imgur = ctx.obj['IMGUR']
-    if username is None:
-        username = ctx.obj['CONFIG']['account_username']
-    print(imgur.images(username, 0))
+    print(imgur.images())
 
 
 @cli.command('image')
@@ -346,6 +388,23 @@ def image_delete(ctx, image_id):
     "Deletes an image"
     imgur = ctx.obj['IMGUR']
     print(imgur.image_delete(image_id))
+
+
+@cli.command('image_ids')
+@click.pass_context
+def image_ids(ctx):
+    "Returns an array of Image IDs"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.image_ids())
+
+
+@cli.command('image_fav')
+@click.option('--image_id', default=None, help='image id', required=True)
+@click.pass_context
+def image_fav(ctx, image_id):
+    "Favorite an image with the given ID"
+    imgur = ctx.obj['IMGUR']
+    print(imgur.image_fav(image_id))
 
 # Gallery
 

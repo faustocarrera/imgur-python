@@ -14,9 +14,17 @@ class ImgurBase():
         response = {}
         response['url'] = url
         response['status'] = request.status_code
-        # response['headers'] = request.headers
         if request.status_code == 200:
             response['response'] = request.json()
         else:
             response['response'] = request
         return response
+
+    @staticmethod
+    def data(request):
+        "Just return the data"
+        if request.status_code == 200:
+            response = request.json()
+            return response['data']
+        else:
+            return null
