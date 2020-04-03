@@ -323,6 +323,7 @@ def albums(ctx):
     imgur = ctx.obj['IMGUR']
     print(imgur.album_ids())
 
+
 @cli.command('album_fav')
 @click.option('--album_id', default=None, help='Album ID', required=True)
 @click.pass_context
@@ -387,14 +388,16 @@ def image_delete(ctx, image_id):
     "Deletes an image"
     imgur = ctx.obj['IMGUR']
     print(imgur.image_delete(image_id))
-    
+
+
 @cli.command('image_ids')
 @click.pass_context
 def image_ids(ctx):
     "Returns an array of Image IDs"
     imgur = ctx.obj['IMGUR']
     print(imgur.image_ids())
-    
+
+
 @cli.command('image_fav')
 @click.option('--image_id', default=None, help='image id', required=True)
 @click.pass_context
