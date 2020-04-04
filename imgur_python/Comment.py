@@ -29,7 +29,7 @@ class Comment(ImgurBase):
         request = requests.get(url, headers=headers)
         response = self.response(request, url)
         # the total number of comments
-        response['response']['total'] = self.comment_count()
+        response['response']['total'] = self.count()
         return response
 
     def comment(self, comment_id):
@@ -84,7 +84,7 @@ class Comment(ImgurBase):
         request = requests.post(url, headers=headers, data=payload)
         return self.response(request, url)
 
-    def comment_ids(self, page, sort):
+    def ids(self, page, sort):
         "Return an array of all of the comment IDs"
         url = '{0}/3/account/{1}/comments/ids/{2}/{3}'.format(
             self.api_url,
@@ -98,10 +98,10 @@ class Comment(ImgurBase):
         request = requests.get(url, headers=headers)
         response = self.response(request, url)
         # the total number of comments
-        response['response']['total'] = self.comment_count()
+        response['response']['total'] = self.count()
         return response
 
-    def comment_replies(self, comment_id):
+    def replies(self, comment_id):
         "Get the comment with all of the replies for the comment"
         url = '{0}/3/comment/{1}/replies'.format(
             self.api_url,
@@ -113,7 +113,7 @@ class Comment(ImgurBase):
         request = requests.get(url, headers=headers)
         return self.response(request, url)
 
-    def comment_count(self):
+    def count(self):
         "Return a count of all of the comments associated with the account"
         url = '{0}/3/account/{1}/comments/count'.format(
             self.api_url,
