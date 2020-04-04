@@ -27,7 +27,7 @@ class Image(ImgurBase):
         request = requests.get(url, headers=headers)
         response = self.response(request, url)
         # the total number of comments
-        response['response']['total'] = self.image_count()
+        response['response']['total'] = self.count()
         return response
 
     def image(self, image_id):
@@ -74,7 +74,7 @@ class Image(ImgurBase):
         request = requests.delete(url, headers=headers)
         return self.response(request, url)
 
-    def image_ids(self, page):
+    def ids(self, page):
         "Returns an array of Image IDs that are associated with the account"
         url = '{0}/3/account/{1}/images/ids/{2}'.format(
             self.api_url,
@@ -87,10 +87,10 @@ class Image(ImgurBase):
         request = requests.get(url, headers=headers)
         response = self.response(request, url)
         # the total number of comments
-        response['response']['total'] = self.image_count()
+        response['response']['total'] = self.count()
         return response
 
-    def image_fav(self, image_id):
+    def fav(self, image_id):
         "Favorite an image with the given ID"
         url = '{0}/3/image/{1}/favorite'.format(self.api_url, image_id)
         headers = {
@@ -99,7 +99,7 @@ class Image(ImgurBase):
         request = requests.post(url, headers=headers)
         return self.response(request, url)
 
-    def image_count(self):
+    def count(self):
         "Return the total number of albums associated with the account"
         url = '{0}/3/account/{1}/images/count'.format(
             self.api_url,

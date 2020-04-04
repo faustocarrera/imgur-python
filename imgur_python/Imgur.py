@@ -16,7 +16,7 @@ from .FileCheck import FileCheck
 class Imgur():
     "Imgur classes entry point"
 
-    __version__ = '0.2.0'
+    __version__ = '0.2.1'
 
     def __init__(self, config):
         # config
@@ -141,11 +141,11 @@ class Imgur():
 
     def comment_ids(self, page=0, sort='newest'):
         "Return an array of all of the comment IDs"
-        return self.comment.comment_ids(page, sort)
+        return self.comment.ids(page, sort)
 
     def comment_replies(self, comment_id):
         "Returns all of the reply notifications for the user"
-        return self.comment.comment_replies(comment_id)
+        return self.comment.replies(comment_id)
 
     # Album
 
@@ -203,11 +203,11 @@ class Imgur():
     
     def album_ids(self, page=0):
         "Return an array of all of the album IDs"
-        return self.album.album_ids(page)
+        return self.album.ids(page)
     
     def album_fav(self, album_id):
         "Favorite an album with a given ID"
-        return self.album.album_fav(album_id)
+        return self.album.fav(album_id)
 
     # Image
 
@@ -268,11 +268,11 @@ class Imgur():
     
     def image_ids(self, page=0):
         "Returns an array of Image IDs that are associated with the account"
-        return self.image.image_ids(page)
+        return self.image.ids(page)
     
     def image_fav(self, image_id):
         "Favorite an image with the given ID"
-        return self.image.image_fav(image_id)
+        return self.image.fav(image_id)
 
     # Gallery
 
