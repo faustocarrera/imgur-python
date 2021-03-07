@@ -34,7 +34,7 @@ class Image(ImgurBase):
         "Get information about an image"
         url = '{0}/3/image/{1}'.format(self.api_url, image_id)
         headers = {
-            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
