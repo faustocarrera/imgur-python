@@ -35,7 +35,7 @@ class Album(ImgurBase):
         "Get additional information about an album"
         url = '{0}/3/album/{1}'.format(self.api_url, album_id)
         headers = {
-            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
@@ -44,7 +44,7 @@ class Album(ImgurBase):
         "Get information about an image in an album"
         url = '{0}/3/album/{1}/images'.format(self.api_url, album_id)
         headers = {
-            'authorization': 'Client-ID {0}'.format(self.config['client_id'])
+            'authorization': 'Bearer {0}'.format(self.config['access_token'])
         }
         request = requests.get(url, headers=headers)
         return self.response(request, url)
