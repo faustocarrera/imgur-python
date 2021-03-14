@@ -50,3 +50,16 @@ album_id = album['response']['data']['id']
 response = imgur_client.gallery_album(album_id, 'This is going down on the sub', 0, 'funny,midly_interesting')
 print(response)
 ```
+
+## Roadmap
+
+__Gallery__
+
+* Gallery Album
+* Gallery Image
+* Album / Image Reporting
+* Album / Image Votes
+* Album / Image Voting
+* Album / Image Comments
+* Album / Image Comment
+* Album / Image Comment Creation
