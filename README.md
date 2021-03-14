@@ -7,7 +7,7 @@ The original imgurpython project is no longer supported, so, I decided to create
 
 __Disclaimer:__ This is a work in progress. In this first version, I'm not gonna implement all the API calls, only the necessary ones to interact with imgur and be able to create albums, upload images and share them on the site.
 
-For more information, check the [project wiki](https://github.com/faustocarrera/imgur-python/wiki)
+For more information, check the [API client documentation](https://imgur-python.readthedocs.io/en/latest/)
 
 ## Requirements
 
