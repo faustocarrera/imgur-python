@@ -18,7 +18,7 @@ For more information, check the [project wiki](https://github.com/faustocarrera/
 ## Links
 
 * [imgur API documentation](https://apidocs.imgur.com/?version=latest#intro)
-* [API client wiki](https://github.com/faustocarrera/imgur-python/wiki)
+* [API client documentation](https://imgur-python.readthedocs.io/en/latest/)
 
 ## Install
 
