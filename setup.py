@@ -11,7 +11,7 @@ try:
 except ImportError:
     from distutils.core import setup
     
-version = '0.2.2'
+version = '0.2.3'
 requirements = [
     'requests>=2.0',
     'fleep>=1.0'
@@ -27,7 +27,7 @@ config = {
     'license': 'GPLv3+',
     'author': 'Fausto Carrera',
     'author_email': 'fausto.carrera@gmx.com',
-    'url': 'https://github.com/faustocarrera/imgur-python/wiki',
+    'url': 'https://faustocarrera.github.io/imgur-python/',
     'download_url': 'https://github.com/faustocarrera/imgur-python',
     'version': version,
     'install_requires': requirements,
