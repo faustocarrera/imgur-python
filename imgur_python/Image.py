@@ -15,16 +15,25 @@ class Image(ImgurBase):
         self.config = config
         self.api_url = api_url
 
+    def get_header(self):
+        if self.config.get('access_token'):
+            headers = {
+                'authorization': 'Bearer {0}'.format(self.config['access_token'])
+            }
+        else:
+            headers = {
+                'authorization': f'Authorization: Client-ID {self.config["client_id"]}'
+            }          
+        return(headers)  
+            
+
     def images(self, page):
         "Get account images"
         url = '{0}/3/account/me/images/{1}'.format(
             self.api_url,
             page
         )
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
-        request = requests.get(url, headers=headers)
+        request = requests.get(url, headers=self.get_header())
         response = self.response(request, url)
         # the total number of comments
         response['response']['total'] = self.count()
@@ -33,45 +42,33 @@ class Image(ImgurBase):
     def image(self, image_id):
         "Get information about an image"
         url = '{0}/3/image/{1}'.format(self.api_url, image_id)
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
-        request = requests.get(url, headers=headers)
+        request = requests.get(url, headers=self.get_header())
         return self.response(request, url)
 
     def upload(self, payload, files=None):
         "Upload a new image or video"
         url = '{0}/3/upload'.format(self.api_url)
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
         if files is not None:
             request = requests.post(
                 url,
-                headers=headers,
+                headers=self.get_header(),
                 data=payload,
                 files=files
             )
         else:
-            request = requests.post(url, headers=headers, data=payload)
+            request = requests.post(url, headers=self.get_header(), data=payload)
         return self.response(request, url)
 
     def update(self, image_id, payload):
         "Updates the title or description of an image"
         url = '{0}/3/image/{1}'.format(self.api_url, image_id)
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
-        request = requests.post(url, headers=headers, data=payload)
+        request = requests.post(url, headers=self.get_header(), data=payload)
         return self.response(request, url)
 
     def delete(self, image_id):
         "Deletes an image"
         url = '{0}/3/image/{1}'.format(self.api_url, image_id)
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
-        request = requests.delete(url, headers=headers)
+        request = requests.delete(url, headers=self.get_header())
         return self.response(request, url)
 
     def ids(self, page):
@@ -81,10 +78,7 @@ class Image(ImgurBase):
             self.config['account_username'],
             page
         )
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
-        request = requests.get(url, headers=headers)
+        request = requests.get(url, headers=self.get_header())
         response = self.response(request, url)
         # the total number of comments
         response['response']['total'] = self.count()
@@ -93,10 +87,7 @@ class Image(ImgurBase):
     def fav(self, image_id):
         "Favorite an image with the given ID"
         url = '{0}/3/image/{1}/favorite'.format(self.api_url, image_id)
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
-        request = requests.post(url, headers=headers)
+        request = requests.post(url, headers=self.get_header())
         return self.response(request, url)
 
     def count(self):
@@ -105,8 +96,5 @@ class Image(ImgurBase):
             self.api_url,
             self.config['account_username']
         )
-        headers = {
-            'authorization': 'Bearer {0}'.format(self.config['access_token'])
-        }
-        request = requests.get(url, headers=headers)
+        request = requests.get(url, headers=self.get_header())
         return self.data(request)
