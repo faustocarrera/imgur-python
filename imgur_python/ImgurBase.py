@@ -27,4 +27,4 @@ class ImgurBase():
             response = request.json()
             return response['data']
         else:
-            return null
+            return None
