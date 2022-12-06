@@ -16,7 +16,7 @@ from .FileCheck import FileCheck
 class Imgur():
     "Imgur classes entry point"
 
-    __version__ = '0.2.1'
+    __version__ = '0.2.4'
 
     def __init__(self, config):
         # config
