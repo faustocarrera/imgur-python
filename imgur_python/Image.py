@@ -23,9 +23,9 @@ class Image(ImgurBase):
         else:
             headers = {
                 'authorization': f'Authorization: Client-ID {self.config["client_id"]}'
-            }          
-        return(headers)  
-            
+            }
+        return headers
+
 
     def images(self, page):
         "Get account images"
