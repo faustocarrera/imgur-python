@@ -4,6 +4,8 @@
 Base class
 """
 
+from .Exceptions import ExceptionLUT, ImgurException
+
 
 class ImgurBase():
     "Basic methods"
@@ -17,7 +19,8 @@ class ImgurBase():
         if request.status_code == 200:
             response['response'] = request.json()
         else:
-            response['response'] = request
+            raise ExceptionLUT.get(request.status_code, ImgurException) \
+                     (request.status_code, request.reason)
         return response
 
     @staticmethod
@@ -27,4 +30,5 @@ class ImgurBase():
             response = request.json()
             return response['data']
         else:
-            return null
+            raise ExceptionLUT.get(request.status_code, ImgurException) \
+                     (request.status_code, request.reason)
