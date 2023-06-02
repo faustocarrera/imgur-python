@@ -16,7 +16,7 @@ from .FileCheck import FileCheck
 class Imgur():
     "Imgur classes entry point"
 
-    __version__ = '0.2.4'
+    __version__ = '0.2.5'
 
     def __init__(self, config):
         # config
@@ -219,7 +219,7 @@ class Imgur():
         "Get information about an image"
         return self.image.image(image_id)
 
-    def image_upload(self, filename, title, description, album=None, disable_audio=1):
+    def image_upload(self, filename, title, description, album=None, disable_audio=1, name=None):
         "Upload a new image or video"
         files = None
         payload = {
@@ -229,6 +229,9 @@ class Imgur():
         # album
         if album is not None:
             payload['album'] = album
+        # name
+        if name is not None:
+            payload['name'] = name
         # file, video or url
         if filename.startswith('http'):
             payload['type'] = 'url'

@@ -11,7 +11,7 @@ try:
 except ImportError:
     from distutils.core import setup
     
-version = '0.2.4'
+version = '0.2.5'
 requirements = [
     'requests>=2.0',
     'fleep>=1.0'
