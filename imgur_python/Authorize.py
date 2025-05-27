@@ -5,9 +5,10 @@ Generate authorization link
 """
 
 import requests
+from .ImgurBase import ImgurBase
 
 
-class Authorize():
+class Authorize(ImgurBase):
     "Class to authorize account with the app"
 
     def __init__(self, config, api_url):
