@@ -1,6 +1,12 @@
 imgur-python
 ============
 
+## UPDATE!
+
+Unfortunately, it's no longer possible to access the Imgur API. There are valid reasons for this: the proliferation of third-party applications and the misuse and abuse of the API make it impossible to maintain in the way it was previously done. It was a great project for me because it taught me a lot about programming. I´m closing the project for good.
+
+--
+
 A Python client for the Imgur API.
 
 The original imgurpython project is no longer supported, so, I decided to create my own python client for the [Imgur API](https://apidocs.imgur.com/?version=latest).
